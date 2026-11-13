@@ -1,0 +1,45 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora CI/CD - Exemplo Didático</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Calculadora com Histórico</h1>
+    
+    <form id="calc-form">
+      <div class="input-group">
+        <label for="num1">Primeiro Número:</label>
+        <input type="number" id="num1" step="any" required placeholder="Ex: 10">
+      </div>
+
+      <div class="input-group">
+        <label for="num2">Segundo Número:</label>
+        <input type="number" id="num2" step="any" required placeholder="Ex: 2">
+      </div>
+
+      <div class="button-group">
+        <button type="submit" id="btn-somar" data-op="soma">Somar (+)</button>
+        <button type="submit" id="btn-dividir" data-op="divisao">Dividir (÷)</button>
+      </div>
+    </form>
+
+    <section class="resultado-box" aria-live="polite">
+      <h2>Resultado:</h2>
+      <p id="resultado-texto">Aguardando cálculo...</p>
+    </section>
+
+    <section class="historico-box">
+      <div class="historico-header">
+        <h2>Histórico (LocalStorage)</h2>
+        <button type="button" id="btn-limpar">Limpar</button>
+      </div>
+      <ul id="lista-historico"></ul>
+    </section>
+  </main>
+
+  <script src="logic.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
