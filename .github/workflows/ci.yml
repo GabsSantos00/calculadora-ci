@@ -1,0 +1,52 @@
+# Nome que aparecerá na aba "Actions" do seu repositório no GitHub
+name: Pipeline de Integração Contínua (CI)
+
+# Gatilhos (Triggers): Quando este pipeline será executado?
+on:
+  push:
+    branches: [ main, master ] # Roda sempre que houver push na branch principal
+  pull_request:
+    branches: [ main, master ] # Roda sempre que abrirem um PR para a branch principal
+
+# Trabalhos (Jobs) que serão executados
+jobs:
+  testes-automatizados:
+    name: Rodar Testes Unitários (Jest) e E2E (Cypress)
+    # Sistema operacional da máquina virtual (runner) do GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Baixa o código do seu repositório para a máquina virtual
+      - name: 1. Checkout do código
+        uses: actions/checkout@v4
+
+      # Passo 2: Instala o Node.js na máquina virtual
+      - name: 2. Configurar ambiente Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # Faz cache das dependências para acelerar builds futuros
+
+      # Passo 3: Instala as dependências definidas no package-lock.json
+      - name: 3. Instalar dependências
+        run: npm ci
+
+      # Passo 4: Executa os testes unitários com Jest
+      - name: 4. Executar Testes Unitários (Jest)
+        run: npm run test:unit
+
+      # Passo 5: Sobe o servidor local e executa o Cypress em modo headless
+      - name: 5. Executar Testes E2E (Cypress)
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run start:server
+          wait-on: 'http://localhost:8080'
+          browser: chrome
+
+      # Passo 6: Caso o Cypress falhe, salva os screenshots como artefatos para debug
+      - name: 6. Upload de screenshots em caso de falha
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
