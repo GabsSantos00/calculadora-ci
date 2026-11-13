@@ -25,11 +25,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm' # Faz cache das dependências para acelerar builds futuros
 
       # Passo 3: Instala as dependências definidas no package-lock.json
       - name: 3. Instalar dependências
-        run: npm ci
+        run: npm install.
 
       # Passo 4: Executa os testes unitários com Jest
       - name: 4. Executar Testes Unitários (Jest)
