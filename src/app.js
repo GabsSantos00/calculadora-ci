@@ -1,5 +1,3 @@
-APP.JS	
-
 const CHAVE_STORAGE = 'calculadora_historico_v1';
 
 // Recupera o histórico salvo ou retorna um array vazio
