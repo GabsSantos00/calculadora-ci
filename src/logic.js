@@ -25,3 +25,5 @@ function dividir(a, b) {
 }
 
 }
+if (typeof module !== 'undefined') module.exports = { somar, dividir};
+if (
