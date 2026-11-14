@@ -28,7 +28,7 @@ jobs:
 
       # Passo 3: Instala as dependências definidas no package-lock.json
       - name: 3. Instalar dependências
-        run: npm install.
+        run: npm install
 
       # Passo 4: Executa os testes unitários com Jest
       - name: 4. Executar Testes Unitários (Jest)
